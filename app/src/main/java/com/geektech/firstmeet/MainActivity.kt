@@ -23,7 +23,6 @@ class MainActivity:AppCompatActivity () {
         initView()
     }
     private fun initView() {
-
         editText = findViewById(R.id.editText_MA)
         button = findViewById(R.id.btn_send)
         button.setOnClickListener {
@@ -38,18 +37,18 @@ class MainActivity:AppCompatActivity () {
            } else{
             val intent = Intent(this, SecondActivity::class.java)
             intent.putExtra("text", sendText)
-            startActivity(intent)
+            startActivityForResult(intent, 11)
            }
         }
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_SEND_TEXT && resultCode == Activity.RESULT_OK){
+            returnText = data!!.getStringExtra("returnText")
+            editText.setText(returnText)
             Toast.makeText(this, "Данные из Second Activity были изменены с $sendText на $returnText ", Toast.LENGTH_LONG).show()
 
             if (!sendText.equals(returnText)){
-                returnText = data!!.getStringExtra("returnText")
+
 
             }
         }
